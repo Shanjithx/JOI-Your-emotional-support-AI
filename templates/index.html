@@ -1,16 +1,18 @@
-<!-- templates/index.html -->
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>JOI — Chat</title>
 
   <!-- Google fonts used for a neon/mono look -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Space+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Space+Mono&display=swap"
+    rel="stylesheet">
 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
+
 <body>
   <div class="page-overlay"></div>
 
@@ -36,12 +38,18 @@
         <input id="userInput" class="chat-input" placeholder="Type your message..." autocomplete="off" />
         <button id="sendBtn" class="send-btn" title="Send">
           <!-- paper-plane icon -->
-          <svg width="22" height="22" viewBox="0 0 24 24"><path fill="white" d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24">
+            <path fill="white" d="M2 21l21-9L2 3v7l15 2-15 2z" />
+          </svg>
         </button>
       </div>
     </div>
   </main>
 
+  <!-- Add marked.js and DOMPurify for Markdown parsing and sanitization -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
+
 </html>

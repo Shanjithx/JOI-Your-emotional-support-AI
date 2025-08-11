@@ -1,13 +1,17 @@
-// static/js/app.js
 document.addEventListener("DOMContentLoaded", () => {
   const userInput = document.getElementById("userInput");
   const sendBtn = document.getElementById("sendBtn");
   const messagesDiv = document.getElementById("messages");
 
-  function appendMessage(text, cls="assistant") {
+  function appendMessage(text, cls = "assistant") {
     const el = document.createElement("div");
     el.className = `msg ${cls}`;
-    el.textContent = text;
+    // Parse Markdown and sanitize HTML for assistant messages
+    if (cls === "assistant") {
+      el.innerHTML = DOMPurify.sanitize(marked.parse(text));
+    } else {
+      el.textContent = text; // User messages remain as plain text
+    }
     messagesDiv.appendChild(el);
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
     return el;
@@ -16,13 +20,13 @@ document.addEventListener("DOMContentLoaded", () => {
   async function sendMessage() {
     const text = userInput.value.trim();
     if (!text) return;
-    // append user message
+    // Append user message
     appendMessage(text, "user");
     userInput.value = "";
     userInput.disabled = true;
     sendBtn.disabled = true;
 
-    // prepare assistant bubble (empty, will be filled as stream arrives)
+    // Prepare assistant bubble (empty, will be filled as stream arrives)
     const assistantEl = appendMessage("", "assistant");
 
     try {
@@ -41,15 +45,17 @@ document.addEventListener("DOMContentLoaded", () => {
       const reader = resp.body.getReader();
       const decoder = new TextDecoder("utf-8");
       let done = false;
+      let accumulatedText = "";
 
-      // stream read loop
+      // Stream read loop
       while (!done) {
         const { value, done: doneReading } = await reader.read();
         done = doneReading;
         if (value) {
           const chunk = decoder.decode(value, { stream: !done });
-          // append chunk to assistant bubble
-          assistantEl.textContent += chunk;
+          accumulatedText += chunk;
+          // Update assistant bubble with parsed Markdown
+          assistantEl.innerHTML = DOMPurify.sanitize(marked.parse(accumulatedText));
           messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
       }
@@ -62,10 +68,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // send on button click
+  // Send on button click
   sendBtn.addEventListener("click", sendMessage);
 
-  // enter key also sends
+  // Enter key also sends
   userInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
