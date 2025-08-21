@@ -25,7 +25,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Soft dark overlay so foreground pops */
 .page-overlay {
   position: fixed;
   inset: 0;
@@ -33,7 +32,6 @@ body {
   pointer-events: none;
 }
 
-/* Hero section (top center) */
 .hero {
   text-align: center;
   padding-top: 36px;
@@ -53,9 +51,7 @@ body {
   border-radius: 50%;
   object-fit: cover;
   border: 7px solid rgba(100, 230, 255, 0.95);
-  box-shadow:
-    0 0 8px rgba(100, 230, 255, 0.85),
-    0 0 40px rgba(181, 102, 255, 0.25);
+  box-shadow: 0 0 8px rgba(100, 230, 255, 0.85), 0 0 40px rgba(181, 102, 255, 0.25);
 }
 
 .avatar-glow {
@@ -69,7 +65,6 @@ body {
   box-shadow: 0 0 40px rgba(76, 186, 255, 0.14), inset 0 0 20px rgba(181, 102, 255, 0.06);
 }
 
-/* Title & subtitle */
 .title {
   font-family: 'Montserrat', sans-serif;
   color: #a2b6ff;
@@ -88,7 +83,6 @@ body {
   margin-top: 10px;
 }
 
-/* Chat shell and box */
 .chat-shell {
   width: 86%;
   max-width: 1100px;
@@ -97,7 +91,8 @@ body {
   z-index: 2;
 }
 
-.chat-box {
+.chat-box,
+.login-box {
   background: linear-gradient(180deg, rgba(11, 14, 20, 0.9), rgba(14, 16, 27, 0.85));
   border-radius: 10px;
   padding: 36px 28px;
@@ -106,7 +101,19 @@ body {
   border: 1px solid rgba(120, 90, 130, 0.06);
 }
 
-/* Top status text */
+.login-box h2 {
+  font-family: 'Montserrat', sans-serif;
+  color: #a2b6ff;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.login-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .status {
   text-align: center;
   color: #80f3ff;
@@ -115,7 +122,6 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-/* Messages area */
 .messages {
   height: 280px;
   overflow-y: auto;
@@ -130,7 +136,6 @@ body {
   gap: 12px;
 }
 
-/* Message bubbles */
 .msg {
   max-width: 85%;
   padding: 12px 14px;
@@ -139,7 +144,6 @@ body {
   white-space: pre-wrap;
 }
 
-/* Assistant */
 .msg.assistant {
   align-self: flex-start;
   background: rgba(14, 16, 30, 0.55);
@@ -147,7 +151,6 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
 }
 
-/* User */
 .msg.user {
   align-self: flex-end;
   background: linear-gradient(90deg, rgba(72, 44, 95, 0.85), rgba(39, 27, 63, 0.82));
@@ -155,7 +158,6 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
-/* Input row */
 .input-row {
   display: flex;
   gap: 12px;
@@ -176,6 +178,10 @@ body {
   font-size: 15px;
 }
 
+.chat-input::placeholder {
+  color: rgba(230, 230, 255, 0.6);
+}
+
 .send-btn {
   width: 54px;
   height: 46px;
@@ -189,7 +195,6 @@ body {
   box-shadow: 0 6px 20px rgba(183, 103, 255, 0.16), 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
-/* Markdown styles for assistant messages */
 .msg.assistant p {
   margin: 8px 0;
 }
@@ -217,7 +222,6 @@ body {
   margin: 4px 0;
 }
 
-/* Small responsive tweaks */
 @media (max-width: 760px) {
   .chat-shell {
     width: 96%;
